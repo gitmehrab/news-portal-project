@@ -1,3 +1,8 @@
 .catagory-list{
     list-style-type: none;
 }
+
+.catagory{
+    height: 400px;
+    padding: 8px;
+}
