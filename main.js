@@ -6,16 +6,14 @@ const loadNewsCatagory = () =>{
 }
 const displayNewsCatagory = items =>{
    // console.log(items)
-    const listItem = document.getElementById('list-menu');
-    
-     for(const item of items){
-      
+    const listItem = document.getElementById('list-menu'); 
+     items.forEach(item=>{
         const createList = document.createElement('div');
         createList.innerHTML = `
         <button id="${item.category_id}" onclick="loadCatagoryId('${item.category_id}')"  class="bg-white border-0 text-secondary" > ${item.category_name}</button>
         `;
-        listItem.appendChild(createList);
-    } 
+             listItem.appendChild(createList); 
+    })
     
 }
 // data display by Clicked
