@@ -3,9 +3,11 @@ const loadNewsCatagory = () =>{
     fetch(url)
     .then(res =>res.json())
     .then(data=>displayNewsCatagory(data.data.news_category))
+    .catch(error=>console.log(error))
 }
 const displayNewsCatagory = (items) =>{
     console.log(items)
+    
     const listItem = document.getElementById('list-menu'); 
      items.forEach(item=>{
        
@@ -21,15 +23,18 @@ const displayNewsCatagory = (items) =>{
 
 const loadCatagoryId = (category_id) =>{
     //console.log(category_id)
+    ToggleLoader(true);
     fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
     .then(res => res.json())
-    .then(data => displayCatagoryId(data.data));
+    .then(data => displayCatagoryId(data.data))
+    .catch(error=>console.log(error))
 }
 
 
     
     const displayCatagoryId = (idList) =>{
        // console.log(idList)
+       ToggleLoader(false);
         const idListDiv = document.getElementById('idList');
         idListDiv.innerHTML = ``; 
       
@@ -45,6 +50,8 @@ const loadCatagoryId = (category_id) =>{
         else{
           noFound.classList.add('d-none')
         }
+
+
        for(id of idList){
        // console.log(id)
        
@@ -73,19 +80,23 @@ const loadCatagoryId = (category_id) =>{
             </div>
         `
         idListDiv.appendChild(createIdDiv)
+        
        }
        
     }
 
 
     // news Detail data
+    
     const detailDataLoad = (id)=>{
       //console.log(id)
+      
        const url = `https://openapi.programming-hero.com/api/news/${id}` 
        console.log(url)
        fetch(url)
        .then(res => res.json())
        .then(data => detailDataDisplay(data.data))
+       .catch(error=>console.log(error))
     }
 
     const detailDataDisplay = (data) =>{
@@ -120,6 +131,19 @@ const loadCatagoryId = (category_id) =>{
         }
         
     }
+
+    // loader toggle
+    const ToggleLoader = isLoading =>{
+      const loadId = document.getElementById('loader');
+      if(isLoading){
+        loadId.classList.remove('d-none')
+      }
+      else{
+        loadId.classList.add('d-none')
+      }
+    }
+
+
 
 
     function newWindow(){
