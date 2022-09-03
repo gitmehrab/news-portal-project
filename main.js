@@ -4,10 +4,11 @@ const loadNewsCatagory = () =>{
     .then(res =>res.json())
     .then(data=>displayNewsCatagory(data.data.news_category))
 }
-const displayNewsCatagory = items =>{
-   // console.log(items)
+const displayNewsCatagory = (items) =>{
+    console.log(items)
     const listItem = document.getElementById('list-menu'); 
      items.forEach(item=>{
+       
         const createList = document.createElement('div');
         createList.innerHTML = `
         <button id="${item.category_id}" onclick="loadCatagoryId('${item.category_id}')"  class="bg-white border-0 text-secondary" > ${item.category_name}</button>
@@ -27,12 +28,17 @@ const loadCatagoryId = (category_id) =>{
 
 
     
-    const displayCatagoryId = idList =>{
+    const displayCatagoryId = (idList) =>{
        // console.log(idList)
         const idListDiv = document.getElementById('idList');
         idListDiv.innerHTML = ``; 
-        const noFound = document.getElementById('no-found')
       
+      
+      const IdFound = document.getElementById('data-found');
+      IdFound.innerHTML= `${idList.length} Found For This Catagory`
+
+        const noFound = document.getElementById('no-found')
+       
         if(idList.length === 0){
           noFound.classList.remove('d-none')
         }
@@ -41,6 +47,7 @@ const loadCatagoryId = (category_id) =>{
         }
        for(id of idList){
        // console.log(id)
+       
         const createIdDiv = document.createElement('div');
         
         createIdDiv.classList.add('d-flex','catagory', 'justify-content-between', 'border','my-4')
@@ -112,6 +119,11 @@ const loadCatagoryId = (category_id) =>{
 
         }
         
+    }
+
+
+    function newWindow(){
+      window.open("./question.html");
     }
 
     detailDataLoad()
