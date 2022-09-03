@@ -18,6 +18,7 @@ const displayNewsCatagory = items =>{
     } 
     
 }
+// data display by Clicked
 
 const loadCatagoryId = (category_id) =>{
     //console.log(category_id)
@@ -40,9 +41,9 @@ const loadCatagoryId = (category_id) =>{
         <div class="col-4">
               <img class="img-fluid" style="height:100%; width:100%" src="${id.thumbnail_url}" alt="">
             </div>
-            <div class="col-7">
+            <div class="col-7 d-flex flex-column gap-4 justify-content-center">
               <h4>${id.title}</h4>
-              <p id="slice">${id.details}</p>
+              <p id="slice">${id.details.slice(0,200)}...</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="">
                 <img class="img-fluid" style="height:50px" src="${id.author.img}" alt="">
