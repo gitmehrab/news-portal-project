@@ -5,9 +5,7 @@ const loadNewsCatagory = () =>{
     .then(data=>displayNewsCatagory(data.data.news_category))
     .catch(error=>console.log(error))
 }
-const displayNewsCatagory = (items) =>{
-    console.log(items)
-    
+const displayNewsCatagory = (items) =>{ 
     const listItem = document.getElementById('list-menu'); 
      items.forEach(item=>{
        
@@ -22,7 +20,6 @@ const displayNewsCatagory = (items) =>{
 // data display by Clicked
 
 const loadCatagoryId = (category_id) =>{
-    //console.log(category_id)
     ToggleLoader(true);
     fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
     .then(res => res.json())
@@ -33,14 +30,32 @@ const loadCatagoryId = (category_id) =>{
 
     
     const displayCatagoryId = (idList) =>{
-       // console.log(idList)
        ToggleLoader(false);
         const idListDiv = document.getElementById('idList');
         idListDiv.innerHTML = ``; 
       
       
       const IdFound = document.getElementById('data-found');
-      IdFound.innerHTML= `${idList.length} Found For This Catagory`
+      IdFound.innerHTML= `${idList.length} Found For This Catagory`;
+
+
+      const filter = document.getElementById('filter');
+      filter.innerHTML = `
+      <nav class="navbar bg-light my-4">
+      <div class="container-fluid">
+        <div class="d-flex">
+          <p>Short by view : </p>
+          <button class="border-0 p-2">Defult <i class="fa-solid fa-caret-down"></i></button>
+        </div>
+        
+        <div class="d-flex gap-2" role="search">
+          
+          <button class="btn bg-primary text-white" type="">Todays Pick</button>
+          <button class="btn btn-outline-success" type="">Trending</button>
+        </div>
+      </div>
+    </nav>
+      `
 
         const noFound = document.getElementById('no-found')
        
@@ -51,10 +66,7 @@ const loadCatagoryId = (category_id) =>{
           noFound.classList.add('d-none')
         }
 
-
        for(id of idList){
-       // console.log(id)
-       
         const createIdDiv = document.createElement('div');
         
         createIdDiv.classList.add('d-flex','catagory', 'justify-content-between', 'border','my-4')
@@ -68,12 +80,12 @@ const loadCatagoryId = (category_id) =>{
               <div class="d-flex justify-content-between align-items-center">
                 <div class="">
                 <img class="img-fluid" style="height:50px" src="${id.author.img}" alt="">
-                <p>${id.author.name}</p>
+                <p>${id.author.name ? id.author.name:'No data found'}</p>
                 <p>${id.author.published_date ? id.author.published_date : 'No Data found'}</p>
                 </div>
                 <div class="d-flex gap-2 justify-content-center">
                   <i class="fa-regular fa-eye mt-1"></i>
-                  <p>${id.total_view}</p>
+                  <p>${id.total_view ? id.total_view : 'No data Found'}</p>
                 </div>
                 <button onclick="detailDataLoad('${id._id}')" class="bg-white border-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ><i" class="fa-solid fa-right-long "></i></button>
               </div>
@@ -89,10 +101,7 @@ const loadCatagoryId = (category_id) =>{
     // news Detail data
     
     const detailDataLoad = (id)=>{
-      //console.log(id)
-      
        const url = `https://openapi.programming-hero.com/api/news/${id}` 
-       console.log(url)
        fetch(url)
        .then(res => res.json())
        .then(data => detailDataDisplay(data.data))
@@ -100,11 +109,9 @@ const loadCatagoryId = (category_id) =>{
     }
 
     const detailDataDisplay = (data) =>{
-       // console.log(data)
         const detailDiv = document.getElementById('modal-container');
         detailDiv.innerHTML = ``;
         for(item of data){
-           // console.log(item)
             const createDetailDiv = document.createElement('div');
             createDetailDiv.classList.add('id')
             createDetailDiv.innerHTML = `
@@ -122,8 +129,6 @@ const loadCatagoryId = (category_id) =>{
             <i class="fa-regular fa-eye mt-1"></i>
             <p>${item.total_view ? item.total_view : 'No Data Found'}</p>
         </div>
-        
-
     </div>
             `
             detailDiv.appendChild(createDetailDiv)
@@ -144,16 +149,14 @@ const loadCatagoryId = (category_id) =>{
     }
 
 
-
-
     function newWindow(){
       window.open("./question.html");
     }
 
-    detailDataLoad()
+   // detailDataLoad()
 
 
-  //  loadCatagoryId()
+  
 
   
 loadNewsCatagory() 
