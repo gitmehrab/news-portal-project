@@ -29,7 +29,9 @@ const loadCatagoryId = (category_id) =>{
 
     
     const displayCatagoryId = idList =>{
-        const idListDiv = document.getElementById('idList')
+        console.log(idList)
+        const idListDiv = document.getElementById('idList');
+        idListDiv.innerHTML = ``; 
        for(id of idList){
         //console.log(id)
         const createIdDiv = document.createElement('div');
@@ -40,7 +42,7 @@ const loadCatagoryId = (category_id) =>{
             </div>
             <div class="col-7">
               <h4>${id.title}</h4>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia modi ex sint necessitatibus alias nobis dignissimos obcaecati illo nesciunt doloribus, est blanditiis reiciendis quae pariatur praesentium quasi odit minima veritatis.</p>
+              <p id="slice">${id.details}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="">
                 <img class="img-fluid" style="height:50px" src="${id.author.img}" alt="">
@@ -56,9 +58,10 @@ const loadCatagoryId = (category_id) =>{
         `
         idListDiv.appendChild(createIdDiv)
        }
+       
     }
     
-    loadCatagoryId()
+  //  loadCatagoryId()
 
 
 loadNewsCatagory() 
